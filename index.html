@@ -205,6 +205,79 @@
       color: #aaa;
       font-size: 15px;
     }
+
+    /* 알람 오버레이 */
+    .alarm-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .alarm-overlay.active {
+      display: flex;
+    }
+
+    .alarm-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      max-width: 360px;
+      width: 90%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      animation: alarm-pop 0.3s ease;
+    }
+
+    @keyframes alarm-pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .alarm-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      animation: alarm-shake 0.5s infinite alternate;
+    }
+
+    @keyframes alarm-shake {
+      from { transform: rotate(-10deg); }
+      to { transform: rotate(10deg); }
+    }
+
+    .alarm-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .alarm-desc {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .btn-dismiss {
+      padding: 12px 32px;
+      background: #4a6cf7;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-dismiss:hover {
+      background: #3955d3;
+    }
   </style>
 </head>
 <body>
@@ -234,6 +307,16 @@
     </div>
 
     <div class="reminder-list" id="reminderList"></div>
+  </div>
+
+  <!-- 알람 오버레이 -->
+  <div class="alarm-overlay" id="alarmOverlay">
+    <div class="alarm-box">
+      <div class="alarm-icon">&#128276;</div>
+      <div class="alarm-title" id="alarmTitle"></div>
+      <div class="alarm-desc" id="alarmDesc"></div>
+      <button class="btn-dismiss" onclick="dismissAlarm()">확인</button>
+    </div>
   </div>
 
   <script>
@@ -286,8 +369,6 @@
       document.getElementById('title').value = '';
       document.getElementById('desc').value = '';
       document.getElementById('datetime').value = '';
-
-      scheduleNotification(reminders[reminders.length - 1]);
     }
 
     function toggleComplete(id) {
@@ -350,29 +431,90 @@
       return div.innerHTML;
     }
 
-    function scheduleNotification(reminder) {
-      if (!('Notification' in window)) return;
+    // --- 알람 시스템 ---
+    let alarmAudioCtx = null;
+    let alarmQueue = [];
+    let alarmPlaying = false;
 
-      if (Notification.permission === 'default') {
-        Notification.requestPermission();
-      }
-
-      const delay = new Date(reminder.datetime) - new Date();
-      if (delay > 0) {
-        setTimeout(() => {
-          if (Notification.permission === 'granted') {
-            new Notification('리마인더', { body: reminder.title });
-          }
-        }, delay);
+    function playAlarmSound() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const notes = [659, 784, 659, 784, 659]; // 비프음 멜로디
+        let time = ctx.currentTime;
+        notes.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.3, time + i * 0.25);
+          gain.gain.exponentialRampToValueAtTime(0.01, time + i * 0.25 + 0.2);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(time + i * 0.25);
+          osc.stop(time + i * 0.25 + 0.25);
+        });
+        alarmAudioCtx = ctx;
+      } catch (e) {
+        // Web Audio API 미지원 시 무시
       }
     }
 
-    // Schedule notifications for existing reminders on load
-    reminders.forEach(r => {
-      if (!r.completed) scheduleNotification(r);
-    });
+    function showAlarm(reminder) {
+      alarmQueue.push(reminder);
+      if (!alarmPlaying) showNextAlarm();
+    }
+
+    function showNextAlarm() {
+      if (alarmQueue.length === 0) {
+        alarmPlaying = false;
+        return;
+      }
+      alarmPlaying = true;
+      const reminder = alarmQueue.shift();
+
+      document.getElementById('alarmTitle').textContent = reminder.title;
+      document.getElementById('alarmDesc').textContent = reminder.desc || formatDate(reminder.datetime);
+      document.getElementById('alarmOverlay').classList.add('active');
+
+      playAlarmSound();
+
+      // 브라우저 알림도 시도
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('리마인더', { body: reminder.title });
+      }
+    }
+
+    function dismissAlarm() {
+      document.getElementById('alarmOverlay').classList.remove('active');
+      showNextAlarm();
+    }
+
+    // 매 초마다 알람 체크
+    const notifiedSet = new Set(JSON.parse(localStorage.getItem('notified') || '[]'));
+
+    function checkAlarms() {
+      const now = new Date();
+      reminders.forEach(r => {
+        if (r.completed) return;
+        if (notifiedSet.has(r.id)) return;
+        const target = new Date(r.datetime);
+        if (now >= target) {
+          notifiedSet.add(r.id);
+          localStorage.setItem('notified', JSON.stringify([...notifiedSet]));
+          showAlarm(r);
+        }
+      });
+    }
+
+    setInterval(checkAlarms, 1000);
+
+    // 브라우저 알림 권한 요청
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
 
     render();
+    checkAlarms();
   </script>
 </body>
 </html>
