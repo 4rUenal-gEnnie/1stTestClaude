@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FitnessApp</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_exercises">Exercises</string>
+    <string name="nav_routines">Routines</string>
+    <string name="nav_history">History</string>
+    <string name="nav_timer">Timer</string>
+
+    <!-- Exercises screen -->
+    <string name="exercises_title">Exercises</string>
+    <string name="search_exercises">Search exercises…</string>
+    <string name="clear">Clear</string>
+    <string name="filter_all">All</string>
+    <string name="description">Description</string>
+    <string name="instructions">Instructions</string>
+    <string name="back">Back</string>
+
+    <!-- Routines screen -->
+    <string name="routines_title">Routines</string>
+    <string name="create_routine">Create routine</string>
+    <string name="no_routines">No routines yet</string>
+    <string name="create_first_routine">Create your first routine</string>
+    <string name="delete_routine">Delete routine</string>
+    <string name="delete_routine_confirm">Delete \'%1$s\'? This action cannot be undone.</string>
+    <string name="edit_routine">Edit Routine</string>
+    <string name="new_routine">New Routine</string>
+    <string name="routine_name">Routine name</string>
+    <string name="routine_description">Description (optional)</string>
+    <string name="save">Save</string>
+    <string name="exercises_count">%1$d exercises</string>
+    <string name="no_exercises_in_routine">No exercises added yet. Tap Edit to add some.</string>
+    <string name="sets_reps_rest">%1$d sets × %2$d reps  |  Rest: %3$ds</string>
+    <string name="start_workout">Start Workout</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="remove">Remove</string>
+    <string name="exercises">Exercises</string>
+    <string name="add_exercise">Add exercise</string>
+    <string name="add">Add</string>
+    <string name="sets">Sets</string>
+    <string name="reps">Reps</string>
+    <string name="rest_seconds">Rest (seconds)</string>
+    <string name="save_to_add_exercises">Save the routine name first, then add exercises.</string>
+
+    <!-- History screen -->
+    <string name="history_title">History</string>
+    <string name="new_workout">New workout</string>
+    <string name="no_workouts">No workouts logged yet</string>
+    <string name="workouts">Workouts</string>
+    <string name="total_sets">Total Sets</string>
+    <string name="total_volume">Volume</string>
+    <string name="freeform_workout">Freeform Workout</string>
+    <string name="in_progress">In progress</string>
+    <string name="delete_workout">Delete workout</string>
+    <string name="delete_workout_confirm">Delete this workout log? This cannot be undone.</string>
+
+    <!-- Workout log screen -->
+    <string name="workout_log">Workout Log</string>
+    <string name="finish">Finish</string>
+    <string name="log_set">Log Set</string>
+    <string name="no_sets_logged">No sets logged yet. Tap + to add a set.</string>
+    <string name="set_number">Set %1$d</string>
+    <string name="set_hash">#</string>
+    <string name="weight_kg">Weight (kg)</string>
+    <string name="log">Log</string>
+    <string name="start">Start</string>
+
+    <!-- Timer screen -->
+    <string name="timer_title">Timer</string>
+    <string name="countdown">Countdown</string>
+    <string name="interval">Interval</string>
+    <string name="duration_seconds">Duration</string>
+    <string name="seconds">Seconds</string>
+    <string name="interval_settings">Interval Settings</string>
+    <string name="work_s">Work (s)</string>
+    <string name="rest_s">Rest (s)</string>
+    <string name="rounds">Rounds</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="reset">Reset</string>
+    <string name="work">WORK</string>
+    <string name="rest">REST</string>
+    <string name="round_of">Round %1$d / %2$d</string>
+    <string name="finished">FINISHED!</string>
+
+    <!-- Timer service -->
+    <string name="timer_notification_channel">Timer</string>
+    <string name="timer_notification_channel_desc">Keeps the timer running in the background</string>
+    <string name="timer_running">Timer Running</string>
+    <string name="timer_notification_text">%1$d seconds remaining</string>
+</resources>

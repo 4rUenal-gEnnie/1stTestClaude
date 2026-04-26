@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">피트니스앱</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_exercises">운동</string>
+    <string name="nav_routines">루틴</string>
+    <string name="nav_history">기록</string>
+    <string name="nav_timer">타이머</string>
+
+    <!-- Exercises screen -->
+    <string name="exercises_title">운동 라이브러리</string>
+    <string name="search_exercises">운동 검색…</string>
+    <string name="clear">지우기</string>
+    <string name="filter_all">전체</string>
+    <string name="description">설명</string>
+    <string name="instructions">수행 방법</string>
+    <string name="back">뒤로</string>
+
+    <!-- Routines screen -->
+    <string name="routines_title">루틴</string>
+    <string name="create_routine">루틴 만들기</string>
+    <string name="no_routines">루틴이 없습니다</string>
+    <string name="create_first_routine">첫 번째 루틴 만들기</string>
+    <string name="delete_routine">루틴 삭제</string>
+    <string name="delete_routine_confirm">\'%1$s\'을(를) 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.</string>
+    <string name="edit_routine">루틴 편집</string>
+    <string name="new_routine">새 루틴</string>
+    <string name="routine_name">루틴 이름</string>
+    <string name="routine_description">설명 (선택)</string>
+    <string name="save">저장</string>
+    <string name="exercises_count">운동 %1$d개</string>
+    <string name="no_exercises_in_routine">아직 운동이 없습니다. 편집 버튼을 눌러 추가하세요.</string>
+    <string name="sets_reps_rest">%1$d세트 × %2$d회  |  휴식: %3$d초</string>
+    <string name="start_workout">운동 시작</string>
+    <string name="edit">편집</string>
+    <string name="delete">삭제</string>
+    <string name="cancel">취소</string>
+    <string name="remove">제거</string>
+    <string name="exercises">운동 목록</string>
+    <string name="add_exercise">운동 추가</string>
+    <string name="add">추가</string>
+    <string name="sets">세트</string>
+    <string name="reps">횟수</string>
+    <string name="rest_seconds">휴식 (초)</string>
+    <string name="save_to_add_exercises">루틴 이름을 먼저 저장한 후 운동을 추가하세요.</string>
+
+    <!-- History screen -->
+    <string name="history_title">운동 기록</string>
+    <string name="new_workout">새 운동</string>
+    <string name="no_workouts">아직 기록된 운동이 없습니다</string>
+    <string name="workouts">운동 횟수</string>
+    <string name="total_sets">총 세트</string>
+    <string name="total_volume">총 볼륨</string>
+    <string name="freeform_workout">자유 운동</string>
+    <string name="in_progress">진행 중</string>
+    <string name="delete_workout">운동 삭제</string>
+    <string name="delete_workout_confirm">이 운동 기록을 삭제하시겠습니까? 취소할 수 없습니다.</string>
+
+    <!-- Workout log screen -->
+    <string name="workout_log">운동 기록</string>
+    <string name="finish">완료</string>
+    <string name="log_set">세트 기록</string>
+    <string name="no_sets_logged">아직 세트가 없습니다. +를 눌러 추가하세요.</string>
+    <string name="set_number">%1$d번째 세트</string>
+    <string name="set_hash">세트#</string>
+    <string name="weight_kg">무게 (kg)</string>
+    <string name="log">기록</string>
+    <string name="start">시작</string>
+
+    <!-- Timer screen -->
+    <string name="timer_title">타이머</string>
+    <string name="countdown">카운트다운</string>
+    <string name="interval">인터벌</string>
+    <string name="duration_seconds">시간 설정</string>
+    <string name="seconds">초</string>
+    <string name="interval_settings">인터벌 설정</string>
+    <string name="work_s">운동 (초)</string>
+    <string name="rest_s">휴식 (초)</string>
+    <string name="rounds">라운드</string>
+    <string name="pause">일시정지</string>
+    <string name="resume">계속</string>
+    <string name="reset">초기화</string>
+    <string name="work">운동</string>
+    <string name="rest">휴식</string>
+    <string name="round_of">라운드 %1$d / %2$d</string>
+    <string name="finished">완료!</string>
+
+    <!-- Timer service -->
+    <string name="timer_notification_channel">타이머</string>
+    <string name="timer_notification_channel_desc">백그라운드에서 타이머를 유지합니다</string>
+    <string name="timer_running">타이머 실행 중</string>
+    <string name="timer_notification_text">%1$d초 남음</string>
+</resources>
